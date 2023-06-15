@@ -1,3 +1,4 @@
+
 Q = ['rainy', 'sunny']
 V = ['walk', 'shop', 'clean']
 N = len(Q)
@@ -15,8 +16,8 @@ B = [
 
 π = [0.6, 0.4]
 
-# Calculate the probability of the events using the forward algorithm
-def forward_algorithm(observation_sequence):
+# Calculate the probability of the events 
+def calculate_probability(observation_sequence):
     T = len(observation_sequence)
     alpha = [[0] * N for _ in range(T)]
 
@@ -36,14 +37,14 @@ def forward_algorithm(observation_sequence):
 
 
 
-O = input("Observation Sequence (separated by space): ")
+O = input("Observation Sequence: ")
 
 
 observation_sequence = O.lower().split()
 
-alpha = forward_algorithm(observation_sequence)
+alpha = calculate_probability(observation_sequence)
 
 # Calculate the probability of the event
 probability = sum(alpha[-1])
 
-print(f"Probability of '{O}':", probability)
+print(f"Probability of '{O}' happening:", probability)
