@@ -15,7 +15,7 @@ B = [
 
 π = [0.6, 0.4]
 
-# Calculate the probability of the event "Walk" using the forward algorithm
+# Calculate the probability of the events using the forward algorithm
 def forward_algorithm(observation_sequence):
     T = len(observation_sequence)
     alpha = [[0] * N for _ in range(T)]
