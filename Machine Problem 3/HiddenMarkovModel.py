@@ -1,41 +1,49 @@
-import numpy as np
-
-Q = ['Rainy', 'Sunny']
-V = ['Walk', 'Shop', 'Clean']
+Q = ['rainy', 'sunny']
+V = ['walk', 'shop', 'clean']
 N = len(Q)
 M = len(V)
 
-A = np.array([
+A = [
     [0.7, 0.3],
     [0.4, 0.6]
-])
+]
 
-B = np.array([
+B = [
     [0.1, 0.4, 0.5],
     [0.6, 0.3, 0.1]
-])
+]
 
-π = np.array([0.6, 0.4])
+π = [0.6, 0.4]
 
 # Calculate the probability of the event "Walk" using the forward algorithm
 def forward_algorithm(observation_sequence):
     T = len(observation_sequence)
-    alpha = np.zeros((T, N))
+    alpha = [[0] * N for _ in range(T)]
 
     # Initialization
-    alpha[0] = π * B[:, V.index(observation_sequence[0])]
+    for j in range(N):
+        alpha[0][j] = π[j] * B[j][V.index(observation_sequence[0])]
 
     # Recursion
     for t in range(1, T):
         for j in range(N):
-            alpha[t, j] = np.dot(alpha[t - 1], A[:, j]) * B[j, V.index(observation_sequence[t])]
+            sum_term = 0
+            for i in range(N):
+                sum_term += alpha[t - 1][i] * A[i][j]
+            alpha[t][j] = sum_term * B[j][V.index(observation_sequence[t])]
 
     return alpha
 
-observation_sequence = ['Walk']
+
+
+O = input("Observation Sequence (separated by space): ")
+
+
+observation_sequence = O.lower().split()
+
 alpha = forward_algorithm(observation_sequence)
 
-# Calculate the probability of the event "Walk"
-probability_walk = np.sum(alpha[-1])
+# Calculate the probability of the event
+probability = sum(alpha[-1])
 
-print("Probability of Walk:", probability_walk)
+print(f"Probability of '{O}':", probability)
