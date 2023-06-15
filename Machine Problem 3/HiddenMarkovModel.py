@@ -20,13 +20,17 @@ References:
 """
 
 
-class HMM:
-    def __init__(self, Q: set, V: set, A: list[list], B: list[list], π: list):
+Q = {'Raininy', 'Sunny'}
+V = {'Walk', 'Shop', 'Clean'}
+N = len(Q)
+M = len(V)
+A = [
+        [0.7, 0.3],
+        [0.4, 0.6],
+        ]
+B = [
+        [0.1, 0.4, 0.5],
+        [0.6, 0.3, 0.1],
+        ]
+π = [0.6, 0.4]
 
-        self.N = len(Q)
-        self.M = len(V)
-        self.Q = Q
-        self.V = V
-        self.A = A
-        self.B = B
-        self.π = π
